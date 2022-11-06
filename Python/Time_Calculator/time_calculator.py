@@ -1,4 +1,10 @@
 def add_time(curtime, spendtime, passday = None):
+    days = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
+    day = str(passday).lower()
+    position = None
+    counter = 0
+    if passday is not None:
+        position = days.index(day)
     expanded = curtime.split(" ")
     time = expanded[0].split(":")
     hours = int(time[0])
@@ -16,18 +22,27 @@ def add_time(curtime, spendtime, passday = None):
     minutes_total = minutes + minutes_to_add
     if minutes_total > 59:
         hours_total += 1
-    if hours_total > 12:
-        hours_total -= 12
+    while hours_total > 12:
+        if hours_total > 12:
+            hours_total -= 12
         if toggle is True:
             toggle = False
         elif toggle is False:
             toggle = True
+            if position == 6:
+                position = 0
+            position += 1
+            counter += 1
     if toggle is True:
         am_pm = "AM"
     elif toggle is False:
         am_pm = "PM"
     time_string = str(hours_total) + ":" + str(minutes_total) + " " + am_pm
+    if position is not None:
+        time_string += ", " + days[position].capitalize()
+    if counter != 0:
+        time_string += " " + "(" + str(counter) + " days later)"
     return time_string
 
 
-print(add_time("13:00 AM", "2:10"))
+print(add_time("13:00 AM", "1412:10", "Friday"))
