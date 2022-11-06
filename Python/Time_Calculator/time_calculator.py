@@ -56,8 +56,4 @@ def add_time(curtime, spendtime, passday = None):
         time_string += " (next day)"
       else:
         time_string += " " + "(" + str(counter) + " days later)"
-    return time_string, counter
-
-
-
-print(add_time("8:16 PM", "466:02", "tuesday"))
+    return time_string
