@@ -31,9 +31,7 @@ def add_time(curtime, spendtime, passday = None):
         elif toggle is False:
             toggle = True
             if position is not None:
-              if position == 6:
-                  position = 0
-              position = position + 1
+                position += 1
             counter += 1
     if hours_total == 12 and minutes_total > 0:
           if toggle is True:
@@ -41,9 +39,7 @@ def add_time(curtime, spendtime, passday = None):
           elif toggle is False:
             toggle = True
             if position is not None:
-              if position == 6:
-                  position = 0
-              position = position + 1
+              position += 1
             counter += 1
     if toggle is True:
         am_pm = "AM"
@@ -53,14 +49,15 @@ def add_time(curtime, spendtime, passday = None):
             minutes_total = "0" + str(minutes_total)
     time_string = str(hours_total) + ":" + str(minutes_total) + " " + am_pm
     if position is not None:
-        time_string += ", " + days[position].capitalize()
+        test1 = position % 7
+        time_string += ", " + days[test1].capitalize()
     if counter != 0:
       if counter == 1:
         time_string += " (next day)"
       else:
         time_string += " " + "(" + str(counter) + " days later)"
-    return time_string
+    return time_string, counter
 
 
 
-print(add_time("13:00 AM", "1412:10", "Friday"))
+print(add_time("8:16 PM", "466:02", "tuesday"))
